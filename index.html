@@ -2,48 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HACKED</title>
+  <title>IP Info</title>
   <style>
     body {
-      background-color: black;
-      color: #00ff00;
+      background: black;
+      color: blue;
       font-family: monospace;
       text-align: center;
-      padding-top: 100px;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    pre {
+      font-size: 18px;
+      text-shadow: 0 0 10px blue;
     }
     h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
+      font-size: 32px;
+      text-shadow: 0 0 15px blue;
+      margin-top: 40px;
     }
-    p {
-      font-size: 20px;
-      margin: 5px 0;
-    }
-    a {
-      color: red;
-      font-weight: bold;
-      text-decoration: none;
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
   </style>
 </head>
 <body>
-  <h1>HACKED BY YOU</h1>
-  
-  <p>IP:</p>
-  <p>City:</p>
-  <p>Region:</p>
-  <p>Country:</p>
-  <p>Location:</p>
-  <p>Organization:</p>
-  <p>Timezone:</p>
-  
-  <br>
-  <p><a href="https://discord.gg/ORNEK" target="_blank">JOIN DISCORD</a></p>
+  <canvas id="stars"></canvas>
 
-  <audio autoplay loop>
-    <source src="https://www.myinstants.com/media/sounds/windows-xp-error.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <pre id="ipinfo">Loading...</pre>
+
+  <h1>https://discord.gg/fivemdown &nbsp; HACKED BY ATWS</h1>
+
+  <script>
+    // Yıldız efekti
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const stars = Array.from({length: 150}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5,
+      dy: Math.random() * 0.5 + 0.2
+    }));
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI*2);
+        ctx.fill();
+        star.y += star.dy;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
+    // IP bilgilerini çek
+    fetch("https://ipinfo.io/json?token=8d7365019dc710") // ipinfo.io'dan ücretsiz token alabilirsin
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("ipinfo").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(() => {
+        document.getElementById("ipinfo").textContent = "Bilgiler alınamadı.";
+      });
+  </script>
 </body>
 </html>
-
