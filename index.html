@@ -6,21 +6,51 @@
   <style>
     body {
       background: black;
-      color: blue;
-      font-family: monospace;
+      color: #00f;
+      font-family: "Courier New", monospace;
       text-align: center;
       margin: 0;
       height: 100vh;
       overflow: hidden;
     }
-    pre {
-      font-size: 18px;
-      text-shadow: 0 0 10px blue;
+    #ipinfo {
+      font-size: 22px;
+      line-height: 1.7;
+      text-shadow: 0 0 15px #00f, 0 0 25px #00f, 0 0 40px #00f;
+      white-space: pre-wrap;
+      margin-top: 30px;
+      color: #00f;
     }
-    h1 {
-      font-size: 32px;
-      text-shadow: 0 0 15px blue;
+    #discord-container {
+      margin: 0 auto;
       margin-top: 40px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    #discord-logo {
+      width: 250px; /* Burayı büyüttük */
+      vertical-align: middle;
+      margin-bottom: 7px;
+      filter: drop-shadow(0 0 8px #00f);
+    }
+    #discord-link {
+      font-size: 48px;
+      color: #00f;
+      text-shadow: 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 2px;
+      display: inline-block;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    #hacked-by {
+      font-size: 45px;
+      color: #00f;
+      text-shadow: 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f;
+      letter-spacing: 2px;
+      font-family: inherit;
+      margin-top: 0;
     }
     canvas {
       position: fixed;
@@ -28,15 +58,22 @@
       left: 0;
       z-index: -1;
     }
+    #audio-player {
+      display: none; /* Kullanıcıya gözükmesin */
+    }
   </style>
 </head>
 <body>
   <canvas id="stars"></canvas>
-
+  <div id="discord-container">
+    <img id="discord-logo" src="https://media.discordapp.net/attachments/1018275296929136692/1018286520488173678/unknown-3-1-3.gif?ex=68b6c679&is=68b574f9&hm=1714c7f44c8a0ebb3ab1bf3f4d9dcef7becdeb3e6b506b5b58af5e4ce353e887&=" alt="Discord Image">
+  </div>
   <pre id="ipinfo">Loading...</pre>
-
-  <h1>https://discord.gg/fivemdown &nbsp; HACKED BY ATWS</h1>
-
+  <div>
+    <a id="discord-link" href="https://discord.gg/fivemdown" target="_blank">https://discord.gg/fivemdown</a>
+    <span id="hacked-by"> HACKED BY FİVEMDOWN</span>
+  </div>
+  <audio id="audio-player" src="https://youtu.be/grSnYuySzH8?list=RDgrSnYuySzH8" autoplay loop></audio>
   <script>
     // Yıldız efekti
     const canvas = document.getElementById("stars");
@@ -68,7 +105,7 @@
     drawStars();
 
     // IP bilgilerini çek
-    fetch("https://ipinfo.io/json?token=8d7365019dc710") // ipinfo.io'dan ücretsiz token alabilirsin
+    fetch("https://ipinfo.io/json?token=8d7365019dc710")
       .then(response => response.json())
       .then(data => {
         document.getElementById("ipinfo").textContent = JSON.stringify(data, null, 2);
@@ -76,6 +113,11 @@
       .catch(() => {
         document.getElementById("ipinfo").textContent = "Bilgiler alınamadı.";
       });
+
+    // Otomatik müzik oynatma (bazı tarayıcılarda kullanıcı etkileşimi gerekebilir)
+    window.addEventListener('click', function() {
+      document.getElementById('audio-player').play();
+    });
   </script>
 </body>
 </html>
