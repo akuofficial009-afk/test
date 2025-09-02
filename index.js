@@ -137,3 +137,4 @@ syncVideosLoop(newVideos[0], [newVideos[1], newVideos[2], newVideos[3]]);
 
 };
 document.head.appendChild(script);
+
